@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-10-29T19:19:55.313Z",
+  "students": 700,
+  "practiceStudents": 200,
+  "questionBank": 60,
+  "concepts": 12,
+  "trace": {
+    "newStudent": {
+      "runs": 700,
+      "rootAccuracy": 43,
+      "rootAccuracyWithFollowUp": 50.9,
+      "avgFollowUpQuestions": 0.61,
+      "landedOnBrokenConcept": 91.9,
+      "avgProbes": 2.56,
+      "baselineRedrillChapter": 0,
+      "baselineOneStepBack": 14.6,
+      "byRoot": {
+        "c6_int": 34,
+        "c6_frac": 34,
+        "c6_var": 18,
+        "c7_intops": 54,
+        "c7_intmul": 67,
+        "c7_fracops": 50,
+        "c7_expr": 44
+      }
+    },
+    "afterPlacement": {
+      "runs": 700,
+      "rootAccuracy": 43.1,
+      "rootAccuracyWithFollowUp": 54.1,
+      "avgFollowUpQuestions": 0.73,
+      "landedOnBrokenConcept": 93.4,
+      "avgProbes": 2.57,
+      "baselineRedrillChapter": 0,
+      "baselineOneStepBack": 13.9,
+      "byRoot": {
+        "c6_int": 36,
+        "c6_frac": 31,
+        "c6_var": 22,
+        "c7_intops": 53,
+        "c7_intmul": 66,
+        "c7_fracops": 57,
+        "c7_expr": 37
+      }
+    }
+  },
+  "prediction": {
+    "answers": 8000,
+    "auc": 0.739,
+    "brier": 0.2
+  },
+  "coldStart": {
+    "firstAnswers": 800,
+    "oursBrier": 0.195,
+    "plainEloBrier": 0.206,
+    "oursAuc": 0.726,
+    "plainEloAuc": 0.689
+  },
+  "targeting": {
+    "target": 70,
+    "actualSuccessRate": 60.6,
+    "practiceAnswers": 5600
+  }
+}

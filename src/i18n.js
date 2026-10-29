@@ -1,0 +1,123 @@
+// UI text in English and Hindi. Content (questions, lessons) carries its own
+// translations in src/data.
+
+const S = {
+  appTagline: { en: 'Find the thread. Fix the root.', hi: 'धागा ढूँढो। जड़ ठीक करो।' },
+  student: { en: 'Student', hi: 'छात्र' },
+  teacher: { en: 'Teacher', hi: 'शिक्षक' },
+  about: { en: 'How it works', hi: 'यह कैसे काम करता है' },
+  resetDemo: { en: 'Reset demo', hi: 'डेमो रीसेट' },
+  offline: { en: 'Offline — everything except AI Chotu still works', hi: 'ऑफ़लाइन — AI छोटू के अलावा सब चलता है' },
+
+  whoAreYou: { en: 'Who is studying today?', hi: 'आज कौन पढ़ रहा है?' },
+  sharedPhone: { en: 'Shared phone? Each child has their own profile and PIN.', hi: 'फ़ोन साझा है? हर बच्चे की अपनी प्रोफ़ाइल और PIN है।' },
+  enterPin: { en: 'Enter PIN', hi: 'PIN डालें' },
+  demoPin: { en: 'Demo PIN: 1234', hi: 'डेमो PIN: 1234' },
+  wrongPin: { en: 'Wrong PIN, try again', hi: 'गलत PIN, फिर कोशिश करें' },
+  open: { en: 'Open', hi: 'खोलें' },
+  riyaDesc: { en: 'Class 9 · behind on basics', hi: 'कक्षा 9 · बुनियादी बातों में पीछे' },
+  kabirDesc: { en: 'Class 9 · ahead and bored', hi: 'कक्षा 9 · आगे और ऊबा हुआ' },
+  switchStudent: { en: 'Switch student', hi: 'छात्र बदलें' },
+
+  hello: { en: 'Namaste', hi: 'नमस्ते' },
+  todayPlan: { en: 'Today’s 15 minutes', hi: 'आज के 15 मिनट' },
+  todayFocus: { en: 'Today’s focus', hi: 'आज का विषय' },
+  teacherSet: { en: 'set by your teacher', hi: 'शिक्षक ने चुना' },
+  warmup: { en: '3-question warm-up', hi: '3 सवालों का वार्म-अप' },
+  warmupDesc: { en: 'Today’s topic + review of old roots', hi: 'आज का विषय + पुराने विषयों का दोहराव' },
+  practice: { en: 'Adaptive practice', hi: 'अनुकूल अभ्यास' },
+  practiceDesc: { en: 'Gets harder after a streak, easier after misses', hi: 'लगातार सही होने पर कठिन, गलती पर आसान' },
+  teachChotu: { en: 'Teach Chotu', hi: 'छोटू को सिखाओ' },
+  teachChotuDesc: { en: 'Explain a concept to your curious little brother', hi: 'अपने जिज्ञासु छोटे भाई को समझाओ' },
+  demoQuestion: { en: 'Try the Class 9 question', hi: 'कक्षा 9 का सवाल आज़माओ' },
+  demoQuestionDesc: { en: 'The one from the demo story', hi: 'डेमो कहानी वाला सवाल' },
+  yourThread: { en: 'Your thread', hi: 'तुम्हारा धागा' },
+  threadDesc: { en: 'Each concept builds on the ones below it.', hi: 'हर विषय अपने नीचे वाले विषयों पर टिका है।' },
+  mastered: { en: 'Mastered', hi: 'पक्का' },
+  ok: { en: 'Getting there', hi: 'ठीक-ठाक' },
+  shaky: { en: 'Shaky', hi: 'कमज़ोर' },
+  weak: { en: 'Gap', hi: 'कमी' },
+  back: { en: 'Back', hi: 'वापस' },
+  next: { en: 'Next', hi: 'आगे' },
+  continue: { en: 'Continue', hi: 'जारी रखें' },
+  done: { en: 'Done', hi: 'हो गया' },
+
+  correct: { en: 'Correct!', hi: 'सही!' },
+  notQuite: { en: 'Not quite.', hi: 'पूरी तरह सही नहीं।' },
+  answerWas: { en: 'The answer is', hi: 'सही उत्तर है' },
+  needHint: { en: 'Need a hint?', hi: 'संकेत चाहिए?' },
+  hint1: { en: 'Hint', hi: 'संकेत' },
+  hint2: { en: 'Show one step', hi: 'एक कदम दिखाओ' },
+  hint3: { en: 'Try an easier one', hi: 'आसान सवाल दो' },
+  step: { en: 'One step', hi: 'एक कदम' },
+  whyThis: { en: 'Why this question?', hi: 'यह सवाल क्यों?' },
+  chance: { en: 'Predicted chance you get it right', hi: 'सही होने की अनुमानित संभावना' },
+  aimNormal: { en: 'Aiming for ~70%: challenging, not frustrating', hi: 'लक्ष्य ~70%: चुनौती भरा, पर निराश करने वाला नहीं' },
+  aimHarder: { en: '3 in a row! Aiming harder (~55%)', hi: 'लगातार 3 सही! अब कठिन (~55%)' },
+  aimEasier: { en: '2 misses — aiming easier (~85%)', hi: '2 गलतियाँ — अब आसान (~85%)' },
+  mastery: { en: 'Mastery', hi: 'पकड़' },
+  streak: { en: 'Streak', hi: 'लगातार' },
+  endPractice: { en: 'End practice', hi: 'अभ्यास खत्म' },
+  harder: { en: 'Harder', hi: 'कठिन' },
+  easier: { en: 'Easier', hi: 'आसान' },
+
+  traceTitle: { en: 'Let’s find where this comes from', hi: 'चलो पता करें यह कहाँ से आ रहा है' },
+  traceIntro: { en: 'Your answer suggests something earlier might be shaky. A few quick questions — this is not a test.', hi: 'तुम्हारे उत्तर से लगता है कि कोई पुराना विषय कमज़ोर है। कुछ छोटे सवाल — यह टेस्ट नहीं है।' },
+  probe: { en: 'Quick check', hi: 'छोटी जाँच' },
+  of: { en: 'of', hi: 'में से' },
+  rootFound: { en: 'Found the root!', hi: 'जड़ मिल गई!' },
+  rootFoundDesc: { en: 'This is where the thread broke. Fix this, and the rest gets easier.', hi: 'धागा यहीं टूटा था। इसे ठीक करो, बाकी आसान हो जाएगा।' },
+  rootIsHere: { en: 'The gap is in this topic itself — no older gap found.', hi: 'कमी इसी विषय में है — कोई पुरानी कमी नहीं मिली।' },
+  startLesson: { en: 'Start 2-minute lesson', hi: '2 मिनट का पाठ शुरू करें' },
+  lesson: { en: '2-minute lesson', hi: '2 मिनट का पाठ' },
+  styleVisual: { en: 'Picture', hi: 'चित्र' },
+  styleExample: { en: 'Worked example', hi: 'हल किया उदाहरण' },
+  styleStory: { en: 'Everyday story', hi: 'रोज़ की कहानी' },
+  tryAnotherWay: { en: 'Explain another way', hi: 'दूसरे तरीके से समझाओ' },
+  gotItCheck: { en: 'Got it — check me', hi: 'समझ गया — जाँचो' },
+  checkRoot: { en: 'Check: did the fix work?', hi: 'जाँच: क्या कमी ठीक हुई?' },
+  newStyle: { en: 'Let’s try explaining it a different way.', hi: 'चलो इसे दूसरे तरीके से समझते हैं।' },
+  goingDeeper: { en: 'Still tricky — let’s look one step deeper.', hi: 'अभी भी मुश्किल — एक कदम और नीचे देखते हैं।' },
+  climbing: { en: 'Climbing back up the thread', hi: 'धागे पर वापस ऊपर चढ़ रहे हैं' },
+  retryOriginal: { en: 'Now the original question again', hi: 'अब वही पुराना सवाल फिर से' },
+  summaryTitle: { en: 'Thread repaired', hi: 'धागा जुड़ गया' },
+  summaryPartial: { en: 'Good progress — your teacher can see where to help next.', hi: 'अच्छी प्रगति — तुम्हारे शिक्षक देख सकते हैं कि आगे कहाँ मदद करनी है।' },
+  before: { en: 'before', hi: 'पहले' },
+  after: { en: 'after', hi: 'बाद में' },
+  teachItNow: { en: 'Teach it to Chotu now', hi: 'अब छोटू को सिखाओ' },
+  sentToTeacher: { en: 'Sent to your teacher’s morning brief.', hi: 'तुम्हारे शिक्षक की सुबह की रिपोर्ट में भेजा गया।' },
+  home: { en: 'Home', hi: 'होम' },
+
+  chotuPick: { en: 'What will you teach Chotu today?', hi: 'आज छोटू को क्या सिखाओगे?' },
+  chotuRecommended: { en: 'Recommended — you just fixed this', hi: 'सुझाव — तुमने अभी यह ठीक किया' },
+  chotuMode: { en: 'Chotu mode', hi: 'छोटू मोड' },
+  chotuAI: { en: 'AI (Gemini)', hi: 'AI (Gemini)' },
+  chotuOffline: { en: 'Offline (scripted)', hi: 'ऑफ़लाइन (स्क्रिप्टेड)' },
+  typeOrSpeak: { en: 'Type or tap the mic and explain…', hi: 'लिखो या माइक दबाकर समझाओ…' },
+  send: { en: 'Send', hi: 'भेजो' },
+  listening: { en: 'Listening…', hi: 'सुन रहा हूँ…' },
+  chotuThinking: { en: 'Chotu is thinking…', hi: 'छोटू सोच रहा है…' },
+  ideasCovered: { en: 'Key ideas Chotu understood', hi: 'छोटू ने कौन से मुख्य विचार समझे' },
+  finish: { en: 'Finish', hi: 'खत्म करो' },
+  teachScore: { en: 'Explain-back score', hi: 'समझाने का स्कोर' },
+  neverGrade: { en: 'This is for learning only — it never becomes a grade.', hi: 'यह सिर्फ सीखने के लिए है — कभी अंक नहीं बनेगा।' },
+  missed: { en: 'Not explained yet', hi: 'अभी नहीं समझाया' },
+  warmupDone: { en: 'Warm-up done! On to practice.', hi: 'वार्म-अप हो गया! अब अभ्यास।' },
+  review: { en: 'Review', hi: 'दोहराव' },
+  checkMissed: { en: 'Missed the quick check', hi: 'छोटी जाँच में चूक' },
+  checkPassed: { en: 'Quick check passed — intact', hi: 'छोटी जाँच सही — यह ठीक है' },
+  today: { en: 'Today', hi: 'आज' },
+};
+
+export const cls = (lang, grade) => (lang === 'hi' ? `कक्षा ${grade}` : `Class ${grade}`);
+
+export function t(lang, key) {
+  return S[key]?.[lang] ?? S[key]?.en ?? key;
+}
+
+/** Content fields are either a string or { en, hi }. */
+export function tx(value, lang) {
+  if (value == null) return '';
+  if (typeof value === 'string') return value;
+  return value[lang] ?? value.en;
+}
