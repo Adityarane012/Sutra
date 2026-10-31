@@ -321,22 +321,36 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'infinite_solutions', label: { en: 'Linear equation in 2 variables has infinitely many solutions', hi: 'दो चरों वाले रैखिक समीकरण के अनगिनत हल होते हैं' },
-        keys: ['infinite', 'many', 'anant', 'anek', 'more than one', 'pairs', 'अनंत', 'अनेक', 'कई हल'],
+        keys: [
+          'infinite', 'many', 'anant', 'anek', 'more than one', 'pairs', 'अनंत', 'अनेक', 'कई हल',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', 'not one', 'not only one', 'more',
+          'yes', 'haan', 'ha', 'true', 'sahi', 'bilkul', 'of course', 'unlimited', 'bahut',
+          'multiple', 'x=6', 'x=0', 'y=0', 'y=4', 'नहीं', 'गलत', 'हाँ', 'ज्यादा', 'अनगिनत'
+        ],
         ask: { en: 'Are there really more pairs of x and y that work?', hi: 'क्या x और y के और भी जोड़े हो सकते हैं?' },
       },
       {
         id: 'graph_line', label: { en: 'Graph of the equation is a straight line', hi: 'इस समीकरण का आलेख (ग्राफ) एक सीधी रेखा है' },
-        keys: ['line', 'straight line', 'graph', 'rekha', 'seedhi', 'ग्राफ', 'सीधी रेखा'],
+        keys: [
+          'line', 'straight line', 'graph', 'rekha', 'seedhi', 'ग्राफ', 'सीधी रेखा',
+          'straight', 'linear', 'plot', 'drawing', 'सीधी', 'रेखा'
+        ],
         ask: { en: 'If we draw all these points on a graph paper, what shape appears?', hi: 'ग्राफ पर इन बिंदुओं को बनाएँ तो कौन सा आकार बनता है?' },
       },
       {
         id: 'find_ordered_pairs', label: { en: 'Pick an x, solve for y (e.g. x=0 gives y=4; y=0 gives x=6)', hi: 'कोई भी x चुनो और y निकालो (जैसे x=0 पर y=4; y=0 पर x=6)' },
-        keys: ['x=0', 'y=0', 'table', 'pair', 'intercept', '0', '4', '6', 'तालिका'],
+        keys: [
+          'x=0', 'y=0', 'x=6', 'y=4', 'table', 'pair', 'pairs', 'intercept', '0', '4', '6', 'तालिका',
+          'x=', 'y=', 'comma', 'put', 'substitute', 'value', 'solve', 'point', 'मान', 'हल'
+        ],
         ask: { en: 'How do I easily find two points to draw the line?', hi: 'रेखा खींचने के लिए दो बिंदु आसानी से कैसे ढूँढूँ?' },
       },
       {
         id: 'points_on_line', label: { en: 'Every point on the line satisfies the equation', hi: 'उस रेखा का हर बिंदु इस समीकरण को संतुष्ट करता है' },
-        keys: ['point', 'satisfies', 'on the line', 'bindu', 'संतुष्ट', 'रेखा पर'],
+        keys: [
+          'point', 'points', 'satisfies', 'satisfy', 'on the line', 'bindu', 'संतुष्ट', 'रेखा पर',
+          'solution', 'solutions', 'lies on', 'har bindu', 'हर बिंदु'
+        ],
         ask: { en: 'What does a point that lies right on the line tell us?', hi: 'जो बिंदु रेखा पर आता है उसका क्या मतलब है?' },
       },
     ],

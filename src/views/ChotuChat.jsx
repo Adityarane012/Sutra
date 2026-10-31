@@ -95,7 +95,7 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
     } catch {
       // Offline simulated thinking pause so the thinking state is visually perceptible
       await new Promise((r) => setTimeout(r, 400));
-      out = scriptedTurn({ text, ideas, covered, lang, turn: turns });
+      out = scriptedTurn({ text, ideas, covered, lang, turn: turns, history });
     }
     if (!mountedRef.current) return;
     setCovered(out.covered);
