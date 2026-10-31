@@ -19,9 +19,10 @@ export default function QuestionCard({ question, lang, label, onAnswer, onContin
   const [speaking, setSpeaking] = useState(false);
 
   const options = useMemo(() => {
+    if (!question) return [];
     if (!randomize) return question.options;
     return shuffleOptions(question.options, seedKey || question.id);
-  }, [question.id, question.options, seedKey, randomize]);
+  }, [question?.id, question?.options, seedKey, randomize]);
 
   // Clean up any ongoing speech synthesis on unmount or question change
   useEffect(() => {
@@ -30,7 +31,9 @@ export default function QuestionCard({ question, lang, label, onAnswer, onContin
         window.speechSynthesis.cancel();
       }
     };
-  }, [question.id]);
+  }, [question?.id]);
+
+  if (!question) return null;
 
   const hasSpeech = typeof window !== 'undefined' && 'speechSynthesis' in window;
 

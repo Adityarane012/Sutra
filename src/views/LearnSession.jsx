@@ -8,7 +8,7 @@ import { RUBRICS } from '../chotu/rubrics.js';
 import { recordAnswer, recordLesson } from '../engine/student.js';
 import { startTrace, nextProbe, recordProbe, MAX_PROBES } from '../engine/trace.js';
 import { pickQuestion, TARGET } from '../engine/selector.js';
-import { t, cls } from '../i18n.js';
+import { t, tx, cls } from '../i18n.js';
 
 /**
  * The Learn loop for one question:
@@ -226,7 +226,7 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
           </div>
           {style === 'visual' && lesson.numberLine && <NumberLine points={[-3, 2]} lang={lang} />}
           <ol className="steps">
-            {lesson[style][lang].map((line, i) => <li key={i}>{line}</li>)}
+            {(lesson[style]?.[lang] || lesson[style]?.hinglish || lesson[style]?.en || lesson[style]?.hi || []).map((line, i) => <li key={i}>{line}</li>)}
           </ol>
           <div className="row">
             <button className="btn primary" onClick={toCheck}>{t(lang, 'gotItCheck')} →</button>
@@ -242,7 +242,7 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
 
       {phase === 'climb' && climbQ && (
         <QuestionCard key={cardKey} question={climbQ} lang={lang}
-          label={`${t(lang, 'climbing')} · ${cls(lang, CONCEPT_BY_ID[climbQ.concept].grade)} · ${CONCEPT_BY_ID[climbQ.concept].name[lang]}`}
+          label={`${t(lang, 'climbing')} · ${cls(lang, CONCEPT_BY_ID[climbQ.concept].grade)} · ${tx(CONCEPT_BY_ID[climbQ.concept]?.name, lang)}`}
           onAnswer={onClimbAnswer} onContinue={onClimbContinue} />
       )}
 

@@ -4,7 +4,7 @@ import { RUBRICS, CHOTU_CONCEPTS } from '../chotu/rubrics.js';
 import { scriptedTurn, matchIdeas } from '../chotu/scripted.js';
 import { geminiAvailable, geminiTurn } from '../chotu/gemini.js';
 import { pKnown } from '../engine/student.js';
-import { t, cls } from '../i18n.js';
+import { t, tx, cls } from '../i18n.js';
 
 const MAX_TURNS = 5;
 
@@ -25,7 +25,7 @@ export default function ChotuChat({ studentId, lang, store, initialConcept, onEx
           <div className="pick-list">
             {options.map((c) => (
               <button key={c} className="option" onClick={() => setConcept(c)}>
-                <b>{CONCEPT_BY_ID[c].name[lang]}</b> <span className="muted">· {cls(lang, CONCEPT_BY_ID[c].grade)}</span>
+                <b>{tx(CONCEPT_BY_ID[c]?.name, lang)}</b> <span className="muted">· {cls(lang, CONCEPT_BY_ID[c].grade)}</span>
                 {fixed.has(c) && <span className="pill accent">{t(lang, 'chotuRecommended')}</span>}
               </button>
             ))}
@@ -182,7 +182,7 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
           <ul className="checklist">
             {ideas.map((i) => (
               <li key={i.id} className={covered.includes(i.id) ? 'on' : ''}>
-                <span aria-hidden="true">{covered.includes(i.id) ? '✓' : '○'}</span> {i.label[lang]}
+                <span aria-hidden="true">{covered.includes(i.id) ? '✓' : '○'}</span> {tx(i.label, lang)}
                 {done && !covered.includes(i.id) && <span className="muted small"> — {t(lang, 'missed')}</span>}
               </li>
             ))}
