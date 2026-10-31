@@ -32,6 +32,9 @@ export default function TeacherView({ store, lang }) {
     if (!brief.top) return;
     const topConcept = CONCEPT_BY_ID[brief.top];
     const topLesson = LESSONS[brief.top];
+    const topName = topConcept ? tx(topConcept.name, lang) : 'Prerequisite Gap';
+    const topGrade = topConcept ? cls(lang, topConcept.grade) : '';
+    const reteachText = topLesson?.reteach?.[lang] || topLesson?.reteach?.hinglish || topLesson?.reteach?.en || 'Review prerequisite concept in class.';
     const pairsText = brief.pairs.length > 0
       ? brief.pairs.slice(0, 4).map((p) => `• ${p.helper.name} ➔ ${p.learner.name}`).join('\n')
       : '• Self-paced micro-lessons assigned';
@@ -41,10 +44,10 @@ export default function TeacherView({ store, lang }) {
       `📅 ${new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}`,
       ``,
       `🎯 *Top Root Gap in Class:*`,
-      `${tx(topConcept.name, lang)} (${cls(lang, topConcept.grade)}) — ${brief.topCount}/${brief.total} students stuck`,
+      `${topName} (${topGrade}) — ${brief.topCount}/${brief.total} students stuck`,
       ``,
       `💡 *10-Min Re-teach Activity:*`,
-      `${topLesson.reteach[lang] || topLesson.reteach.en}`,
+      `${reteachText}`,
       ``,
       `👥 *Buddy Pairs (Peer Helpers):*`,
       pairsText,
@@ -83,8 +86,8 @@ export default function TeacherView({ store, lang }) {
             <p className="eyebrow">{t(lang, 'todayBrief')}</p>
             {brief.top ? (
               <>
-                <h2>{brief.topCount} {t(lang, 'of')} {brief.total} {t(lang, 'studentsNeedsHelp') || 'students share one root gap'}: <span className="accent-text">{tx(CONCEPT_BY_ID[brief.top].name, lang)}</span> ({cls(lang, brief.grade)})</h2>
-                <div className="brief-item">💡 <div><b>{t(lang, 'reteachActivity')}</b><p>{LESSONS[brief.top].reteach[lang] || LESSONS[brief.top].reteach.en}</p></div></div>
+                <h2>{brief.topCount} {t(lang, 'of')} {brief.total} {t(lang, 'studentsNeedsHelp') || 'students share one root gap'}: <span className="accent-text">{tx(CONCEPT_BY_ID[brief.top]?.name, lang)}</span> ({cls(lang, brief.grade || 6)})</h2>
+                <div className="brief-item">💡 <div><b>{t(lang, 'reteachActivity')}</b><p>{LESSONS[brief.top]?.reteach?.[lang] || LESSONS[brief.top]?.reteach?.hinglish || LESSONS[brief.top]?.reteach?.en || 'Review prerequisite concept'}</p></div></div>
                 <div className="brief-item">👥 <div><b>{brief.pairs.length} {t(lang, 'buddyPairsReady')}</b>
                   <p>{brief.pairs.length > 0 ? (
                     <>
@@ -93,10 +96,10 @@ export default function TeacherView({ store, lang }) {
                     </>
                   ) : (t(lang, 'noBuddyPairs'))}</p></div></div>
                 <div className="brief-item">🖨️ <div><b>{t(lang, 'personalisedWorksheets')}</b><p>{t(lang, 'worksheetDesc')} <button className="link" onClick={() => setTab('sheets')}>{t(lang, 'open')}</button></p></div></div>
-                {state.classFocus ? (
+                {state.classFocus && CONCEPT_BY_ID[state.classFocus] ? (
                   <div className="approved">
                     <div>
-                      ✓ {t(lang, 'planApproved')} <b>{tx(CONCEPT_BY_ID[state.classFocus].name, lang)}</b> {t(lang, 'first')}
+                      ✓ {t(lang, 'planApproved')} <b>{tx(CONCEPT_BY_ID[state.classFocus]?.name, lang)}</b> {t(lang, 'first')}
                       <button className="link" onClick={clearFocus}>{t(lang, 'undo')}</button>
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -125,7 +128,7 @@ export default function TeacherView({ store, lang }) {
             <p className="eyebrow">{t(lang, 'otherRootGaps')}</p>
             <ul className="bars">
               {brief.counts.map(([c, n]) => (
-                <li key={c}><span>{cls(lang, CONCEPT_BY_ID[c].grade)} · {tx(CONCEPT_BY_ID[c].name, lang)}</span>
+                <li key={c}><span>{cls(lang, CONCEPT_BY_ID[c]?.grade || 6)} · {tx(CONCEPT_BY_ID[c]?.name || {}, lang)}</span>
                   <span className="hbar"><span style={{ width: `${brief.total > 0 ? (n / brief.total) * 100 * 2.5 : 0}%` }} /></span><b>{n}</b></li>
               ))}
             </ul>

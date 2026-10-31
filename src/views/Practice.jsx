@@ -36,10 +36,10 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
 
   const onContinue = () => {
     const opt = answered;
-    const c = CONCEPT_BY_ID[current.q.concept];
+    const c = CONCEPT_BY_ID[current?.q?.concept];
     // Hand over to the trace when the mistake points below this concept.
-    if (!opt.correct && c.prereqs.length) {
-      const m = opt.misconception ? MISCONCEPTIONS[opt.misconception] : null;
+    if (!opt?.correct && c?.prereqs?.length) {
+      const m = opt?.misconception ? MISCONCEPTIONS[opt.misconception] : null;
       const pointsDown = m && m.concept !== c.id;
       const repeated = (misses[c.id] || 0) >= 2;
       if (pointsDown || repeated) { onTrace(current.q.id, opt); return; }
@@ -64,12 +64,17 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
     if (twin) { setCurrent({ ...current, q: twin, easier: true }); setKey((k) => k + 1); }
   };
 
-  const concept = CONCEPT_BY_ID[current.q.concept];
-  const recent = student.attempts.filter((a) => a.mode === 'practice').slice(-5);
-  const streak = (() => { let n = 0; for (let i = student.attempts.length - 1; i >= 0 && student.attempts[i].correct; i--) n++; return n; })();
+  const concept = CONCEPT_BY_ID[current?.q?.concept] || { name: { en: 'Practice' }, grade: 6, id: current?.q?.concept };
+  const recent = (student?.attempts || []).filter((a) => a.mode === 'practice').slice(-5);
+  const streak = (() => {
+    if (!student?.attempts) return 0;
+    let n = 0;
+    for (let i = student.attempts.length - 1; i >= 0 && student.attempts[i].correct; i--) n++;
+    return n;
+  })();
   const label = queue
-    ? `${t(lang, 'warmup')} ${idx + 1}/${queue.questions.length} · ${queue.review.includes(current.q.concept) ? t(lang, 'review') : t(lang, 'today')}`
-    : `${t(lang, 'practice')} · ${cls(lang, concept.grade)} · ${tx(concept.name, lang)}`;
+    ? `${t(lang, 'warmup')} ${idx + 1}/${queue.questions.length} · ${queue.review.includes(current?.q?.concept) ? t(lang, 'review') : t(lang, 'today')}`
+    : `${t(lang, 'practice')} · ${cls(lang, concept?.grade || 6)} · ${tx(concept?.name || {}, lang)}`;
   const aimText = { normal: 'aimNormal', harder: 'aimHarder', easier: 'aimEasier' }[current.target.key];
 
   return (
@@ -80,7 +85,7 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
         <QuestionCard key={key} question={current.q} lang={lang} label={label} seedKey={`${studentId}:${current.q.id}:${count}`} onAnswer={onAnswer} onContinue={onContinue} onEasier={onEasier} />
         <div className="card side">
           <p className="eyebrow">{tx(concept.name, lang)}</p>
-          <MasteryBar p={student.mastery[concept.id].p} lang={lang} />
+          <MasteryBar p={student?.mastery?.[concept?.id]?.p ?? 0.5} lang={lang} />
           <div className="stats">
             <span>🔥 {t(lang, 'streak')}: <b>{streak}</b></span>
             <span>{recent.map((a, i) => <span key={a.t || `${a.q}-${i}`} className={a.correct ? 'dot good' : 'dot bad'} aria-label={a.correct ? 'right' : 'wrong'}>{a.correct ? '✓' : '✗'}</span>)}</span>

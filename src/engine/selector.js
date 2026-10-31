@@ -86,6 +86,6 @@ export function warmUp(student, qstats, classFocus = null, now = Date.now()) {
   return { today, review: due, questions: picked };
 }
 
-export const conceptName = (id, lang) => CONCEPT_BY_ID[id].name[lang] || CONCEPT_BY_ID[id].name.en;
+export const conceptName = (id, lang) => CONCEPT_BY_ID[id]?.name?.[lang] || CONCEPT_BY_ID[id]?.name?.en || id || '';
 
 const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));

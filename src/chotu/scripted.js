@@ -113,7 +113,7 @@ export function scriptedTurn({ text, ideas, covered = [], lang = 'en', turn = 0,
 
   // Target idea: prefer unasked missing ideas; if all were asked, rotate through remaining missing ideas
   const target = unasked[0] || missing[turn % missing.length] || missing[0];
-  const askText = target?.ask?.[lang] || target?.ask?.en || '';
+  const askText = target?.ask?.[lang] || target?.ask?.hinglish || target?.ask?.en || target?.ask?.hi || '';
 
   return {
     covered: all,

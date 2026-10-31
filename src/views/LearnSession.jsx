@@ -242,12 +242,12 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
 
       {phase === 'climb' && climbQ && (
         <QuestionCard key={cardKey} question={climbQ} lang={lang}
-          label={`${t(lang, 'climbing')} · ${cls(lang, CONCEPT_BY_ID[climbQ.concept].grade)} · ${tx(CONCEPT_BY_ID[climbQ.concept]?.name, lang)}`}
+          label={`${t(lang, 'climbing')} · ${cls(lang, CONCEPT_BY_ID[climbQ.concept]?.grade || 6)} · ${tx(CONCEPT_BY_ID[climbQ.concept]?.name, lang)}`}
           onAnswer={onClimbAnswer} onContinue={onClimbContinue} />
       )}
 
       {phase === 'retry' && (
-        <QuestionCard key={cardKey} question={startQ} lang={lang} label={`${t(lang, 'retryOriginal')} · ${cls(lang, CONCEPT_BY_ID[startQ.concept].grade)}`}
+        <QuestionCard key={cardKey} question={startQ} lang={lang} label={`${t(lang, 'retryOriginal')} · ${cls(lang, CONCEPT_BY_ID[startQ.concept]?.grade || 9)}`}
           onAnswer={onRetryAnswer} onContinue={onRetryContinue} />
       )}
 
@@ -277,7 +277,7 @@ function Summary({ result, trace, before, student, lang, onExit, onTeach }) {
           <tbody>
             {concepts.map((c) => (
               <tr key={c}>
-                <td>{cls(lang, CONCEPT_BY_ID[c].grade)} · {tx(CONCEPT_BY_ID[c].name, lang)}</td>
+                <td>{cls(lang, CONCEPT_BY_ID[c]?.grade || 6)} · {tx(CONCEPT_BY_ID[c]?.name, lang)}</td>
                 <td className="muted">{t(lang, 'before')} {Math.round((before?.[c] ?? 0.3) * 100)}%</td>
                 <td><MasteryBar p={student?.mastery?.[c]?.p ?? 0.3} lang={lang} /></td>
               </tr>

@@ -52,11 +52,12 @@ function nextCandidate(student, trace, current, misconceptionId) {
 }
 
 function weakestPrereq(student, conceptId, trace) {
-  const options = CONCEPT_BY_ID[conceptId].prereqs
+  const prereqs = CONCEPT_BY_ID[conceptId]?.prereqs || [];
+  const options = prereqs
     .filter((p) => !probed(trace, p))
     .map((p) => ({ p, k: pKnown(student, p) }))
     .filter((x) => x.k < MASTERED)
-    .sort((a, b) => a.k - b.k || CONCEPT_BY_ID[a.p].grade - CONCEPT_BY_ID[b.p].grade);
+    .sort((a, b) => a.k - b.k || (CONCEPT_BY_ID[a.p]?.grade || 6) - (CONCEPT_BY_ID[b.p]?.grade || 6));
   return options[0]?.p ?? null;
 }
 

@@ -63,6 +63,6 @@ export function morningBrief(students, focusOverride = null) {
     counts,
     pairs: top ? buddyPairs(students, top) : [],
     alerts: alerts(students),
-    grade: top ? CONCEPT_BY_ID[top].grade : null,
+    grade: top ? (CONCEPT_BY_ID[top]?.grade || null) : null,
   };
 }

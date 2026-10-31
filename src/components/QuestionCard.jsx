@@ -111,7 +111,7 @@ export default function QuestionCard({ question, lang, label, onAnswer, onContin
       {picked && (
         <div className={`feedback ${picked.correct ? 'good' : 'bad'}`}>
           <p><b>{picked.correct ? t(lang, 'correct') : t(lang, 'notQuite')}</b>
-            {!picked.correct && <> {t(lang, 'answerWas')} <b>{tx(correctOpt.text, lang)}</b>.</>}
+            {!picked.correct && correctOpt && <> {t(lang, 'answerWas')} <b>{tx(correctOpt.text, lang)}</b>.</>}
           </p>
           {!picked.correct && <p className="muted">{tx(question.step, lang)}</p>}
           <button className="btn primary" onClick={onContinue}>{t(lang, 'continue')} →</button>

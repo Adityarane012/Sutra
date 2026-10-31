@@ -13,7 +13,11 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'right_bigger', label: { en: 'Further right on the number line = bigger', hi: 'संख्या रेखा पर ज़्यादा दाईं ओर = बड़ा' },
-        keys: ['right', 'daay', 'daai', 'dayi', 'dahin', 'दाईं', 'दाएँ', 'दायें', 'दाहिन'],
+        keys: [
+          'right', 'daay', 'daai', 'dayi', 'dahin', 'दाईं', 'दाएँ', 'दायें', 'दाहिन',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '2 is bigger', '2 is greater',
+          '2 bada', '2 बड़ा', 'positive', 'positive is bigger', 'dhanatmak', 'धनात्मक', 'नहीं', 'गलत', '2 > -3', '2'
+        ],
         ask: { en: 'But how do I know which one is bigger just by looking?', hi: 'पर देखकर कैसे पता चलेगा कि कौन बड़ा है?' },
       },
       {
@@ -41,7 +45,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'sub_neg_add', label: { en: 'Subtracting a negative is the same as adding', hi: 'ऋण को घटाना = जोड़ना' },
-        keys: ['add', 'plus', 'jod', 'जोड़', 'प्लस', 'becomes +', 'ban jata', 'बन जाता', 'two minus', 'do minus', 'दो माइनस', 'minus minus', 'माइनस माइनस'],
+        keys: [
+          'add', 'plus', 'jod', 'जोड़', 'प्लस', 'becomes +', 'ban jata', 'बन जाता', 'two minus', 'do minus', 'दो माइनस', 'minus minus', 'माइनस माइनस',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '4+3', '4 + 3', 'नहीं', 'गलत'
+        ],
         ask: { en: 'But there are two minus signs. What happens to them?', hi: 'पर इसमें दो माइनस हैं। उनका क्या होता है?' },
       },
       {
@@ -51,7 +58,7 @@ export const RUBRICS = {
       },
       {
         id: 'answer', label: { en: 'Gets the right answer (4 − (−3) = 7)', hi: 'सही उत्तर (4 − (−3) = 7)' },
-        keys: ['7', 'seven', 'saat', 'सात', '७'],
+        keys: ['7', 'seven', 'saat', 'सात', '७', '=7', '= 7', 'is 7', 'ans 7'],
         ask: { en: 'So what is the actual answer then?', hi: 'तो असली उत्तर क्या है?' },
       },
       {
@@ -69,7 +76,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'same_pos', label: { en: 'Same signs give a positive answer', hi: 'एक जैसे चिह्न → धन उत्तर' },
-        keys: ['positive', 'plus', 'dhan', 'धन', 'प्लस', 'same sign', 'same signs', 'ek jaise', 'एक जैसे', 'cancel', 'kat', 'कट'],
+        keys: [
+          'positive', 'plus', 'dhan', 'धन', 'प्लस', 'same sign', 'same signs', 'ek jaise', 'एक जैसे', 'cancel', 'kat', 'कट',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '+12', 'plus 12', 'नहीं', 'गलत'
+        ],
         ask: { en: 'So what happens when both numbers are negative?', hi: 'तो जब दोनों संख्याएँ माइनस हों तब क्या होता है?' },
       },
       {
@@ -79,7 +89,7 @@ export const RUBRICS = {
       },
       {
         id: 'answer', label: { en: 'Gets the right answer ((−3) × (−4) = 12)', hi: 'सही उत्तर ((−3) × (−4) = 12)' },
-        keys: ['12', 'twelve', 'barah', 'बारह', '१२'],
+        keys: ['12', 'twelve', 'barah', 'बारह', '१२', '+12', '=12', '= 12', 'is 12'],
         ask: { en: 'So what is (−3) × (−4) really?', hi: 'तो असल में (−3) × (−4) कितना है?' },
       },
       {
@@ -107,7 +117,11 @@ export const RUBRICS = {
       },
       {
         id: 'answer', label: { en: 'Says 1/4 is bigger', hi: 'बताता/बताती है कि 1/4 बड़ा है' },
-        keys: ['1/4 is bigger', '1/4 bada', '1/4 बड़ा', 'quarter is bigger', '1/4 is more', '1/4 zyada', '1/4 ज़्यादा', '1/4 >'],
+        keys: [
+          '1/4', 'quarter', 'one fourth', '1/4 is bigger', '1/4 bada', '1/4 बड़ा', 'quarter is bigger',
+          '1/4 is more', '1/4 zyada', '1/4 ज़्यादा', '1/4 >', 'no', 'nahi', 'nahin', 'wrong', 'galat', 'false',
+          'नहीं', 'गलत', 'एक चौथाई'
+        ],
         ask: { en: 'So which one should I pick if I want more cake?', hi: 'तो ज़्यादा केक चाहिए तो कौन सा चुनूँ?' },
       },
       {
@@ -125,7 +139,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'times', label: { en: '2x means 2 × x', hi: '2x मतलब 2 × x' },
-        keys: ['times', 'multiply', 'into', 'guna', 'गुणा', '×', '2 x 3', '2*3', 'twice', 'double', 'dugna', 'दुगना', 'दोगुना'],
+        keys: [
+          'times', 'multiply', 'into', 'guna', 'गुणा', '×', '2 x 3', '2*3', 'twice', 'double', 'dugna', 'दुगना', 'दोगुना',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '2*3=6', '2x3=6', '2 into 3', 'नहीं', 'गलत'
+        ],
         ask: { en: 'Then what does the 2 in front of x do?', hi: 'तो x के आगे वाला 2 करता क्या है?' },
       },
       {
@@ -135,7 +152,7 @@ export const RUBRICS = {
       },
       {
         id: 'answer', label: { en: 'Gets the right answer (2x = 6)', hi: 'सही उत्तर (2x = 6)' },
-        keys: ['6', 'six', 'chhe', 'chah', 'छह', 'छः', '६'],
+        keys: ['6', 'six', 'chhe', 'chah', 'छह', 'छः', '६', '=6', '= 6', 'is 6', 'ans 6'],
         ask: { en: 'So what is 2x really, when x is 3?', hi: 'तो x = 3 हो तो 2x असल में कितना है?' },
       },
       {
@@ -153,12 +170,18 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'like_terms', label: { en: 'Only like terms (same letter) can be added', hi: 'सिर्फ समान पद (एक ही अक्षर) जुड़ते हैं' },
-        keys: ['like term', 'same letter', 'same variable', 'samaan', 'समान', 'ek hi akshar', 'एक ही अक्षर', 'different letter', 'alag akshar', 'अलग अक्षर', 'unlike'],
+        keys: [
+          'like term', 'same letter', 'same variable', 'samaan', 'समान', 'ek hi akshar', 'एक ही अक्षर',
+          'different letter', 'alag akshar', 'अलग अक्षर', 'unlike', 'different variables', 'alag variable', 'x and y', 'x aur y'
+        ],
         ask: { en: 'Why can’t I add x and y? They’re both letters.', hi: 'x और y क्यों नहीं जुड़ते? दोनों अक्षर ही तो हैं।' },
       },
       {
         id: 'stays', label: { en: '2x + 3y stays as it is', hi: '2x + 3y वैसा ही रहता है' },
-        keys: ['stays', 'same', 'cannot', "can't", 'nahi', 'नहीं', 'waisa', 'वैसा', 'already'],
+        keys: [
+          'stays', 'same', 'cannot', "can't", 'nahi', 'नहीं', 'waisa', 'वैसा', 'already',
+          'no', 'wrong', 'galat', 'false', 'cannot add', 'cant add', 'nahi jud sakte', 'alag alag', 'गलत', 'नहीं जुड़ सकते', 'नहीं होगा'
+        ],
         ask: { en: 'So what is 2x + 3y then?', hi: 'तो 2x + 3y क्या बनेगा?' },
       },
       {
@@ -181,7 +204,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'common_denom', label: { en: 'Need a common denominator (LCM) before adding', hi: 'जोड़ने से पहले समान हर (LCM) चाहिए' },
-        keys: ['common', 'denominator', 'lcm', 'same', 'har', 'samaan', 'लसावि', 'समान हर', 'equal denominator', '6'],
+        keys: [
+          'common', 'denominator', 'lcm', 'same', 'har', 'samaan', 'लसावि', 'समान हर', 'equal denominator', '6',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '5/6', 'five sixths', 'नहीं', 'गलत'
+        ],
         ask: { en: 'Why can’t I just add the bottom numbers directly?', hi: 'नीचे वाली संख्याएँ सीधे क्यों नहीं जुड़तीं?' },
       },
       {
@@ -214,7 +240,10 @@ export const RUBRICS = {
       },
       {
         id: 'inverse_op', label: { en: 'Use inverse operations to isolate x (subtract 5)', hi: 'x निकालने के लिए उल्टी संक्रिया करो (5 घटाओ)' },
-        keys: ['subtract 5', 'minus 5', 'inverse', 'opposite', 'ulta', 'घटाओ', 'उल्टा', '5 minus'],
+        keys: [
+          'subtract 5', 'minus 5', 'inverse', 'opposite', 'ulta', 'घटाओ', 'उल्टा', '5 minus',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '12-5', '12 - 5', 'solve', 'x = 7', 'x=7', '7', 'seven', 'saat', 'नहीं', 'गलत'
+        ],
         ask: { en: 'How do I remove the + 5 from next to the x?', hi: 'x के पास से + 5 को कैसे हटाऊँ?' },
       },
       {
@@ -237,7 +266,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'collect_vars', label: { en: 'Bring variable terms to one side by subtracting x', hi: 'x घटाकर चर वाले पदों को एक तरफ लाओ' },
-        keys: ['one side', 'collect', 'subtract x', 'minus x', 'ek taraf', '2x', 'एक तरफ'],
+        keys: [
+          'one side', 'collect', 'subtract x', 'minus x', 'ek taraf', '2x', 'एक तरफ',
+          'move x', 'bring x', 'transfer x', '3x - x', '3x-x', 'x on one side', 'shift x', 'x ko', 'x घटाओ'
+        ],
         ask: { en: 'How do I deal with having x on both sides?', hi: 'दोनों तरफ x हो तो क्या करूँ?' },
       },
       {
@@ -247,7 +279,7 @@ export const RUBRICS = {
       },
       {
         id: 'divide_coeff', label: { en: 'Divide by the coefficient of x at the end', hi: 'अंत में x के गुणांक से भाग दो' },
-        keys: ['divide by 2', 'coefficient', 'gunank', 'गुणांक', 'भाग दो', 'divide'],
+        keys: ['divide by 2', 'coefficient', 'gunank', 'गुणांक', 'भाग दो', 'divide', 'x = 3', 'x=3', '3'],
         ask: { en: 'If 2x = 6, what is the very last step to find x?', hi: 'अगर 2x = 6 है, तो x निकालने का आखिरी कदम क्या है?' },
       },
       {
@@ -265,7 +297,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'distribute_all', label: { en: 'Multiply the outside number by EVERY term inside', hi: 'बाहर वाली संख्या से कोष्ठक के हर पद को गुणा करो' },
-        keys: ['every', 'both', 'distribute', 'dono', '12', 'दोनों', 'सबको', 'हर पद'],
+        keys: [
+          'every', 'both', 'distribute', 'dono', '12', 'दोनों', 'सबको', 'हर पद',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', '6x + 12', '6x+12', 'multiplies both', 'multiply 4', 'दोनों से', 'नहीं', 'गलत'
+        ],
         ask: { en: 'Why doesn’t the 3 just stop at the 2x?', hi: '3 सिर्फ 2x से ही गुणा क्यों नहीं होता?' },
       },
       {
@@ -293,7 +328,10 @@ export const RUBRICS = {
     ideas: [
       {
         id: 'substitute_var', label: { en: 'Replace every x with the value: 2² − 5(2) + 6', hi: 'हर x की जगह वह मान रखो: 2² − 5(2) + 6' },
-        keys: ['replace', 'substitute', 'put 2', 'x ki jagah', 'x की जगह', 'मान रखो'],
+        keys: [
+          'replace', 'substitute', 'put 2', 'x ki jagah', 'x की जगह', 'मान रखो',
+          'no', 'nahi', 'nahin', 'wrong', 'galat', 'false', 'x = 2', 'x=2', 'put x', 'substitute 2', '2^2', '4 - 10 + 6', '0', 'zero', 'shunya', 'नहीं', 'गलत'
+        ],
         ask: { en: 'What does p(2) actually mean mathematically?', hi: 'गणित में p(2) का असल में क्या मतलब है?' },
       },
       {
