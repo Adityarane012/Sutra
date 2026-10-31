@@ -105,17 +105,9 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
       if (climbList(trace).length) { goClimb(0, s); } else { goRetry(); }
       return;
     }
-    // Still wrong. If the trace ran out of probes, the gap may be deeper:
-    // continue the trace from this concept. Otherwise teach it another way.
-    if (trace.reason === 'max_probes') {
-      const t2 = startTrace(s, checkQ, opt);
-      if (t2.candidate) {
-        setTraceHistory((h) => [...h, trace]);
-        setMessage(t(lang, 'goingDeeper'));
-        beginProbes({ ...t2, start: trace.start, startQuestion: trace.startQuestion, extraClimb: [trace.root, ...climbList(trace)] }, s);
-        return;
-      }
-    }
+    // Still wrong. Respect the max 3-probe diagnostic boundary and do not trap
+    // the student in a chained 3-probe loop in the same sitting.
+    // Try an alternate lesson explanation style, or record partial progress for teacher follow-up.
     if (stylesTried < LESSON_STYLES.length) {
       setStyleIdx((i) => (i + 1) % LESSON_STYLES.length);
       setStylesTried((n) => n + 1);
@@ -136,7 +128,13 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
   };
   const onClimbAnswer = (opt, hints) => { last.current = { opt, s: record(climbQ, opt, hints, 'climb') }; };
   const onClimbContinue = () => {
-    const { s } = last.current;
+    const { opt, s } = last.current;
+    if (!opt?.correct) {
+      // Failed intermediate prerequisite climb question; do not falsely declare thread repaired
+      setResult({ fixed: false });
+      finishSession(false);
+      return;
+    }
     if (climbIdx + 1 < climbList(trace).length) goClimb(climbIdx + 1, s); else goRetry();
   };
 
@@ -168,8 +166,8 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
     return nodes;
   }, [trace, traceHistory, lang]);
 
-  const rootName = trace?.root ? CONCEPT_BY_ID[trace.root].name[lang] : '';
-  const lesson = trace?.root ? LESSONS[trace.root] : null;
+  const rootName = trace?.root && CONCEPT_BY_ID[trace.root] ? tx(CONCEPT_BY_ID[trace.root].name, lang) : '';
+  const lesson = trace?.root && LESSONS[trace.root] ? LESSONS[trace.root] : null;
   const style = LESSON_STYLES[styleIdx];
 
   return (
@@ -177,7 +175,8 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
       <button className="link back" onClick={onExit}>← {t(lang, 'home')}</button>
 
       {phase === 'start' && (
-        <QuestionCard key={cardKey} question={startQ} lang={lang} label={`${t(lang, 'demoQuestion')} · ${cls(lang, CONCEPT_BY_ID[startQ.concept].grade)}`}
+        <QuestionCard key={cardKey} question={startQ} lang={lang} seedKey={`${studentId}:${startQ.id}`}
+          label={`${t(lang, 'demoQuestion')} · ${cls(lang, CONCEPT_BY_ID[startQ.concept].grade)}`}
           onAnswer={onStartAnswer} onContinue={onStartContinue} hints={false} />
       )}
 
@@ -195,7 +194,7 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
         <div className="split">
           <div>
             {message && <p className="notice">{message}</p>}
-            <QuestionCard key={cardKey} question={probeQ} lang={lang} hints={false}
+            <QuestionCard key={cardKey} question={probeQ} lang={lang} hints={false} seedKey={`${studentId}:${probeQ.id}`}
               label={`${t(lang, 'probe')} ${trace.probes.length + 1} ${t(lang, 'of')} ${MAX_PROBES} · ${cls(lang, CONCEPT_BY_ID[probeQ.concept].grade)}`}
               onAnswer={onProbeAnswer} onContinue={onProbeContinue} />
           </div>
@@ -207,7 +206,7 @@ export default function LearnSession({ studentId, questionId, wrongOption, lang,
         <div className="card">
           <p className="eyebrow">Root-Cause Trace</p>
           <h2>{trace.root !== trace.start ? `🎯 ${t(lang, 'rootFound')}` : t(lang, 'rootFound')}</h2>
-          <p className="big-root">{rootName} <span className="pill">{cls(lang, CONCEPT_BY_ID[trace.root].grade)}</span></p>
+          <p className="big-root">{rootName} {trace?.root && CONCEPT_BY_ID[trace.root] ? <span className="pill">{cls(lang, CONCEPT_BY_ID[trace.root].grade)}</span> : null}</p>
           <p>{trace.root !== trace.start ? t(lang, 'rootFoundDesc') : t(lang, 'rootIsHere')}</p>
           <Thread nodes={threadNodes} lang={lang} />
           <button className="btn primary" onClick={startLesson}>{t(lang, 'startLesson')} →</button>
@@ -268,25 +267,27 @@ function Summary({ result, trace, before, student, lang, onExit, onTeach }) {
       </div>
     );
   }
-  const concepts = [...new Set([trace.root, ...climbList(trace), trace.start])];
+  const concepts = [...new Set([trace?.root, ...climbList(trace), trace?.start])].filter((c) => c && CONCEPT_BY_ID[c]);
   return (
     <div className="card">
       <p className="eyebrow">{result?.fixed ? '🧵' : '📋'}</p>
       <h2>{result?.fixed ? t(lang, 'summaryTitle') : t(lang, 'summaryPartial')}</h2>
-      <table className="mini">
-        <tbody>
-          {concepts.map((c) => (
-            <tr key={c}>
-              <td>{cls(lang, CONCEPT_BY_ID[c].grade)} · {CONCEPT_BY_ID[c].name[lang]}</td>
-              <td className="muted">{t(lang, 'before')} {Math.round(before[c] * 100)}%</td>
-              <td><MasteryBar p={student.mastery[c].p} lang={lang} /></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="table-scroll">
+        <table className="mini">
+          <tbody>
+            {concepts.map((c) => (
+              <tr key={c}>
+                <td>{cls(lang, CONCEPT_BY_ID[c].grade)} · {tx(CONCEPT_BY_ID[c].name, lang)}</td>
+                <td className="muted">{t(lang, 'before')} {Math.round((before?.[c] ?? 0.3) * 100)}%</td>
+                <td><MasteryBar p={student?.mastery?.[c]?.p ?? 0.3} lang={lang} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <p className="muted">✉️ {t(lang, 'sentToTeacher')}</p>
       <div className="row">
-        {RUBRICS[trace.root] && <button className="btn primary" onClick={() => onTeach(trace.root)}>🧒 {t(lang, 'teachItNow')}</button>}
+        {trace?.root && RUBRICS[trace.root] && <button className="btn primary" onClick={() => onTeach(trace.root)}>🧒 {t(lang, 'teachItNow')}</button>}
         <button className="btn" onClick={onExit}>{t(lang, 'home')}</button>
       </div>
     </div>

@@ -72,7 +72,9 @@ export function nextProbe(student, trace) {
   const used = new Set(student.attempts.slice(-30).map((a) => a.q));
   const q = pool.find((x) => x.probe && !used.has(x.id))
     || pool.filter((x) => !used.has(x.id)).sort((a, b) => a.level - b.level)[0]
-    || pool.find((x) => x.probe);
+    || pool.find((x) => x.probe)
+    || pool[0];
+  if (!q) return finish(trace, 'pool_exhausted');
   return q;
 }
 

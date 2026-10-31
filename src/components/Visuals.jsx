@@ -1,6 +1,6 @@
 import { CONCEPT_BY_ID } from '../data/concepts.js';
 import { band } from '../engine/bkt.js';
-import { t, cls } from '../i18n.js';
+import { t, cls, tx } from '../i18n.js';
 
 export const BAND_COLORS = {
   mastered: 'var(--ok)',
@@ -34,10 +34,10 @@ export function NumberLine({ points = [-3, 2], lang = 'en' }) {
         </g>
       ))}
       {points.map((p, i) => (
-        <circle key={i} cx={xs(p)} cy="35" r="7" fill={i === points.length - 1 ? 'var(--accent)' : 'var(--blue)'} />
+        <circle key={`pt-${p}-${i}`} cx={xs(p)} cy="35" r="7" fill={i === points.length - 1 ? 'var(--accent)' : 'var(--blue)'} />
       ))}
-      <text x="370" y="18" fontSize="11" fill="currentColor" textAnchor="end">{lang === 'hi' ? 'बड़ा →' : 'bigger →'}</text>
-      <text x="30" y="18" fontSize="11" fill="currentColor">{lang === 'hi' ? '← छोटा' : '← smaller'}</text>
+      <text x="370" y="18" fontSize="11" fill="currentColor" textAnchor="end">{lang === 'hi' ? 'बड़ा →' : lang === 'hinglish' ? 'Bada →' : 'bigger →'}</text>
+      <text x="30" y="18" fontSize="11" fill="currentColor">{lang === 'hi' ? '← छोटा' : lang === 'hinglish' ? '← Chhota' : '← smaller'}</text>
     </svg>
   );
 }
@@ -50,11 +50,11 @@ export function Thread({ nodes, lang }) {
   return (
     <ol className="thread">
       {nodes.map((n, i) => (
-        <li key={i} className={`thread-node ${n.state}`}>
+        <li key={`${n.concept}-${n.state}-${i}`} className={`thread-node ${n.state}`}>
           <span className="knot" aria-hidden="true" />
           <div>
             <p className="thread-grade">{cls(lang, CONCEPT_BY_ID[n.concept].grade)}</p>
-            <p className="thread-name">{CONCEPT_BY_ID[n.concept].name[lang]}</p>
+            <p className="thread-name">{tx(CONCEPT_BY_ID[n.concept].name, lang)}</p>
             {n.note && <p className="thread-note">{n.note}</p>}
           </div>
         </li>

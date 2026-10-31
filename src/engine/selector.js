@@ -41,7 +41,7 @@ export function successChance(student, qstats, question) {
   const elo = expected(student.rating, stat.rating);
   const bkt = predictCorrect(pKnown(student, question.concept));
   // Spread BKT a little by question level so it can still tell easy from hard.
-  const bktLevel = clamp(bkt + (2 - question.level) * 0.08, 0.05, 0.95);
+  const bktLevel = clamp(bkt + (2 - question.level) * 0.05, 0.05, 0.95);
   return w * elo + (1 - w) * bktLevel;
 }
 

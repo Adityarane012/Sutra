@@ -6,7 +6,7 @@ import { MISCONCEPTIONS } from '../data/misconceptions.js';
 import { recordAnswer, qStat } from '../engine/student.js';
 import { confidence } from '../engine/elo.js';
 import { nextConcept, pickQuestion, currentTarget, successChance, easierTwin, warmUp } from '../engine/selector.js';
-import { t, cls } from '../i18n.js';
+import { t, cls, tx } from '../i18n.js';
 
 /**
  * Warm-up (3 questions) and adaptive practice.
@@ -69,7 +69,7 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
   const streak = (() => { let n = 0; for (let i = student.attempts.length - 1; i >= 0 && student.attempts[i].correct; i--) n++; return n; })();
   const label = queue
     ? `${t(lang, 'warmup')} ${idx + 1}/${queue.questions.length} · ${queue.review.includes(current.q.concept) ? t(lang, 'review') : t(lang, 'today')}`
-    : `${t(lang, 'practice')} · ${cls(lang, concept.grade)} · ${concept.name[lang]}`;
+    : `${t(lang, 'practice')} · ${cls(lang, concept.grade)} · ${tx(concept.name, lang)}`;
   const aimText = { normal: 'aimNormal', harder: 'aimHarder', easier: 'aimEasier' }[current.target.key];
 
   return (
@@ -77,13 +77,13 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
       <button className="link back" onClick={onExit}>← {t(lang, 'home')}</button>
       {warmDone && count <= 4 && <p className="notice">{t(lang, 'warmupDone')}</p>}
       <div className="split">
-        <QuestionCard key={key} question={current.q} lang={lang} label={label} onAnswer={onAnswer} onContinue={onContinue} onEasier={onEasier} />
+        <QuestionCard key={key} question={current.q} lang={lang} label={label} seedKey={`${studentId}:${current.q.id}:${count}`} onAnswer={onAnswer} onContinue={onContinue} onEasier={onEasier} />
         <div className="card side">
-          <p className="eyebrow">{concept.name[lang]}</p>
+          <p className="eyebrow">{tx(concept.name, lang)}</p>
           <MasteryBar p={student.mastery[concept.id].p} lang={lang} />
           <div className="stats">
             <span>🔥 {t(lang, 'streak')}: <b>{streak}</b></span>
-            <span>{recent.map((a, i) => <span key={i} className={a.correct ? 'dot good' : 'dot bad'} aria-label={a.correct ? 'right' : 'wrong'}>{a.correct ? '✓' : '✗'}</span>)}</span>
+            <span>{recent.map((a, i) => <span key={a.t || `${a.q}-${i}`} className={a.correct ? 'dot good' : 'dot bad'} aria-label={a.correct ? 'right' : 'wrong'}>{a.correct ? '✓' : '✗'}</span>)}</span>
           </div>
           {!queue && (
             <p className={`aim ${current.target.key}`}>
@@ -96,7 +96,7 @@ export default function Practice({ studentId, mode, lang, store, onExit, onTrace
               <li>{t(lang, 'chance')}: <b>{Math.round(current.chance * 100)}%</b></li>
               <li>BKT P(known): {Math.round(current.p * 100)}%</li>
               <li>Elo: student {Math.round(current.rating)} vs question {Math.round(current.qRating)} ({current.qN} attempts, trust {Math.round(current.trust * 100)}%)</li>
-              <li>{(student.focus || state.classFocus) === current.q.concept ? `🧑‍🏫 ${t(lang, 'teacherSet')}` : (lang === 'hi' ? 'सबसे कमज़ोर विषय जिसकी नींव पक्की है' : 'Weakest concept whose prerequisites are mastered')}</li>
+              <li>{(student.focus || state.classFocus) === current.q.concept ? `🧑‍🏫 ${t(lang, 'teacherSet')}` : t(lang, 'whyConceptSelection')}</li>
               {current.easier && <li>{t(lang, 'hint3')}</li>}
             </ul>
           )}

@@ -173,6 +173,174 @@ export const RUBRICS = {
       },
     ],
   },
+  c7_fracops: {
+    opener: {
+      en: 'Didi, 1/2 + 1/3 is 2/5, right? You just add the tops and add the bottoms!',
+      hi: 'दीदी, 1/2 + 1/3 = 2/5 है ना? बस ऊपर वाले जोड़ो और नीचे वाले जोड़ो!',
+    },
+    ideas: [
+      {
+        id: 'common_denom', label: { en: 'Need a common denominator (LCM) before adding', hi: 'जोड़ने से पहले समान हर (LCM) चाहिए' },
+        keys: ['common', 'denominator', 'lcm', 'same', 'har', 'samaan', 'लसावि', 'समान हर', 'equal denominator', '6'],
+        ask: { en: 'Why can’t I just add the bottom numbers directly?', hi: 'नीचे वाली संख्याएँ सीधे क्यों नहीं जुड़तीं?' },
+      },
+      {
+        id: 'multiply_reciprocal', label: { en: 'Dividing by a fraction is multiplying by its reciprocal', hi: 'भिन्न से भाग देना = उल्टे से गुणा करना' },
+        keys: ['flip', 'invert', 'reciprocal', 'ulta', 'उल्टा', 'palat', 'multiply', 'guna', 'गुना'],
+        ask: { en: 'What do I do when I need to divide by a fraction like 2/3?', hi: 'जब 2/3 जैसी भिन्न से भाग देना हो तो क्या करें?' },
+      },
+      {
+        id: 'cross_cancel', label: { en: 'Simplify or cross-cancel common factors', hi: 'उभयनिष्ठ गुणनखंड काटकर सरल करो' },
+        keys: ['simplify', 'cancel', 'divide', 'kaat', 'chhota', 'सरल', 'काट'],
+        ask: { en: 'How do I make a big fraction like 12/18 smaller?', hi: '12/18 जैसी बड़ी भिन्न को छोटा कैसे करें?' },
+      },
+      {
+        id: 'parts_whole', label: { en: 'Explains fractions as equal slices of a whole', hi: 'भिन्न को पूरे के बराबर हिस्सों के रूप में समझाता है' },
+        keys: ['pizza', 'roti', 'slice', 'tukda', 'part', 'whole', 'रोटी', 'टुकड़ा', 'हिस्सा', 'बराबर'],
+        ask: { en: 'Can you show me with a picture like food or drawings?', hi: 'खाने या चित्र से समझाओ ना?' },
+      },
+    ],
+  },
+  c7_simpleeq: {
+    opener: {
+      en: 'Bhaiya, in x + 5 = 12, can’t I just guess numbers until one works?',
+      hi: 'भैया, x + 5 = 12 में क्या मैं सिर्फ अंदाज़ा नहीं लगा सकता जब तक सही ना मिले?',
+    },
+    ideas: [
+      {
+        id: 'balance_scale', label: { en: 'An equation is a balance scale: do the same to both sides', hi: 'समीकरण तराज़ू है: दोनों तरफ एक जैसी संक्रिया करो' },
+        keys: ['balance', 'scale', 'tarazu', 'both sides', 'dono taraf', 'तराज़ू', 'दोनों तरफ', 'same'],
+        ask: { en: 'Why do we have to do things to both sides of the equal sign?', hi: 'बराबर के दोनों तरफ एक जैसा काम क्यों करना पड़ता है?' },
+      },
+      {
+        id: 'inverse_op', label: { en: 'Use inverse operations to isolate x (subtract 5)', hi: 'x निकालने के लिए उल्टी संक्रिया करो (5 घटाओ)' },
+        keys: ['subtract 5', 'minus 5', 'inverse', 'opposite', 'ulta', 'घटाओ', 'उल्टा', '5 minus'],
+        ask: { en: 'How do I remove the + 5 from next to the x?', hi: 'x के पास से + 5 को कैसे हटाऊँ?' },
+      },
+      {
+        id: 'isolate_var', label: { en: 'The goal is to get the variable alone on one side', hi: 'लक्ष्य चर (x) को एक तरफ अकेला करना है' },
+        keys: ['alone', 'isolate', 'akela', 'find x', 'x =', 'अकेला'],
+        ask: { en: 'When do I know the equation is solved?', hi: 'मुझे कैसे पता चलेगा कि समीकरण हल हो गया?' },
+      },
+      {
+        id: 'check_sub', label: { en: 'Substitute the answer back to check (7 + 5 = 12)', hi: 'जाँच के लिए उत्तर वापस रखकर देखो (7 + 5 = 12)' },
+        keys: ['check', 'put back', 'substitute', 'verify', '7', 'जाँच', 'रख कर'],
+        ask: { en: 'How can I be completely sure my answer 7 is right?', hi: 'मुझे पूरा यकीन कैसे हो कि मेरा उत्तर 7 सही है?' },
+      },
+    ],
+  },
+  c8_lineq: {
+    opener: {
+      en: 'Didi, in 3x + 4 = x + 10, how can x be on both sides? That’s confusing!',
+      hi: 'दीदी, 3x + 4 = x + 10 में x दोनों तरफ कैसे हो सकता है?',
+    },
+    ideas: [
+      {
+        id: 'collect_vars', label: { en: 'Bring variable terms to one side by subtracting x', hi: 'x घटाकर चर वाले पदों को एक तरफ लाओ' },
+        keys: ['one side', 'collect', 'subtract x', 'minus x', 'ek taraf', '2x', 'एक तरफ'],
+        ask: { en: 'How do I deal with having x on both sides?', hi: 'दोनों तरफ x हो तो क्या करूँ?' },
+      },
+      {
+        id: 'collect_const', label: { en: 'Bring numbers/constants to the other side', hi: 'संख्याओं को दूसरी तरफ ले जाओ' },
+        keys: ['constant', 'numbers', 'minus 4', 'subtract 4', 'dusri taraf', 'दूसरी तरफ', '6'],
+        ask: { en: 'And what happens to the numbers like +4 and +10?', hi: '+4 और +10 जैसी संख्याओं का क्या होगा?' },
+      },
+      {
+        id: 'divide_coeff', label: { en: 'Divide by the coefficient of x at the end', hi: 'अंत में x के गुणांक से भाग दो' },
+        keys: ['divide by 2', 'coefficient', 'gunank', 'गुणांक', 'भाग दो', 'divide'],
+        ask: { en: 'If 2x = 6, what is the very last step to find x?', hi: 'अगर 2x = 6 है, तो x निकालने का आखिरी कदम क्या है?' },
+      },
+      {
+        id: 'check_sides', label: { en: 'Check that LHS equals RHS with the solution', hi: 'जाँचो कि बायाँ पक्ष और दायाँ पक्ष बराबर हैं' },
+        keys: ['lhs', 'rhs', 'equal', 'barabar', 'check', 'बराबर', 'दोनों पक्ष'],
+        ask: { en: 'How do we check if x = 3 really works?', hi: 'जाँच कैसे करें कि x = 3 सच में सही है?' },
+      },
+    ],
+  },
+  c8_brackets: {
+    opener: {
+      en: 'Bhaiya, 3(2x + 4) is 6x + 4, right? The 3 only multiplies the first thing!',
+      hi: 'भैया, 3(2x + 4) = 6x + 4 है ना? 3 सिर्फ पहली चीज़ से गुणा होगा!',
+    },
+    ideas: [
+      {
+        id: 'distribute_all', label: { en: 'Multiply the outside number by EVERY term inside', hi: 'बाहर वाली संख्या से कोष्ठक के हर पद को गुणा करो' },
+        keys: ['every', 'both', 'distribute', 'dono', '12', 'दोनों', 'सबको', 'हर पद'],
+        ask: { en: 'Why doesn’t the 3 just stop at the 2x?', hi: '3 सिर्फ 2x से ही गुणा क्यों नहीं होता?' },
+      },
+      {
+        id: 'sign_brackets', label: { en: 'A minus outside flips the signs inside: −(a − b) = −a + b', hi: 'बाहर ऋण होने पर अंदर के चिह्न पलटते हैं' },
+        keys: ['minus outside', 'sign flip', 'becomes plus', 'chinh', 'चिह्न', 'माइनस माइनस', 'plus'],
+        ask: { en: 'What if there is a minus sign outside like −2(x − 5)?', hi: 'अगर बाहर माइनस हो जैसे −2(x − 5), तब क्या होगा?' },
+      },
+      {
+        id: 'binomial_foil', label: { en: 'Multiplying two brackets (x+a)(x+b) gives 4 products', hi: 'दो कोष्ठकों को गुणा करने पर 4 पद बनते हैं' },
+        keys: ['four', 'terms', 'foil', 'middle term', 'x^2', 'चार पद', 'बीच का पद'],
+        ask: { en: 'How do we multiply two brackets like (x + 2)(x + 3)?', hi: '(x + 2)(x + 3) जैसे दो कोष्ठक कैसे गुणा करते हैं?' },
+      },
+      {
+        id: 'area_rectangle', label: { en: 'Shows expansion as the area of a divided rectangle', hi: 'विस्तार को बंटे हुए आयत के क्षेत्रफल के रूप में समझाता है' },
+        keys: ['rectangle', 'area', 'grid', 'box', 'kshetraphal', 'आयत', 'क्षेत्रफल'],
+        ask: { en: 'Can you draw a rectangle or picture to show why this works?', hi: 'चित्र बनाकर दिखा सकते हो यह कैसे काम करता है?' },
+      },
+    ],
+  },
+  c9_poly: {
+    opener: {
+      en: 'Didi, to find p(2) for x² − 5x + 6, do I just put 2 next to the x?',
+      hi: 'दीदी, x² − 5x + 6 में p(2) निकालने के लिए क्या बस x के बगल में 2 लिख दूँ?',
+    },
+    ideas: [
+      {
+        id: 'substitute_var', label: { en: 'Replace every x with the value: 2² − 5(2) + 6', hi: 'हर x की जगह वह मान रखो: 2² − 5(2) + 6' },
+        keys: ['replace', 'substitute', 'put 2', 'x ki jagah', 'x की जगह', 'मान रखो'],
+        ask: { en: 'What does p(2) actually mean mathematically?', hi: 'गणित में p(2) का असल में क्या मतलब है?' },
+      },
+      {
+        id: 'powers_first', label: { en: 'Calculate powers first before multiplying: 2² = 4', hi: 'गुणा करने से पहले घात हल करो: 2² = 4' },
+        keys: ['square first', 'power', '4', 'bodmas', 'घात', 'वर्ग'],
+        ask: { en: 'Do I multiply 5 by 2 first or calculate the square first?', hi: 'पहले वर्ग करूँ या पहले गुणा करूँ?' },
+      },
+      {
+        id: 'zero_poly', label: { en: 'If p(a) = 0, then a is called a zero / root of the polynomial', hi: 'अगर p(a) = 0 आता है, तो a बहुपद का शून्यक है' },
+        keys: ['zero', 'root', 'shunya', 'shunyak', '0', 'शून्यक', 'शून्य'],
+        ask: { en: 'What is special if the answer comes out to exactly 0?', hi: 'अगर उत्तर 0 आ जाए तो उसे क्या कहते हैं?' },
+      },
+      {
+        id: 'negative_brackets', label: { en: 'Use brackets when substituting negatives: (−2)² = +4', hi: 'ऋणात्मक संख्या रखते समय कोष्ठक लगाओ: (−2)² = +4' },
+        keys: ['negative', 'bracket', '+4', 'plus 4', 'minus square', 'कोष्ठक'],
+        ask: { en: 'What if we had to find p(−2)? Does the square become minus or plus?', hi: 'अगर p(−2) निकालना हो, तो वर्ग माइनस बनेगा या प्लस?' },
+      },
+    ],
+  },
+  c9_lin2: {
+    opener: {
+      en: 'Bhaiya, 2x + 3y = 12 has only ONE answer (x=3, y=2), right?',
+      hi: 'भैया, 2x + 3y = 12 का सिर्फ एक ही उत्तर (x=3, y=2) हो सकता है ना?',
+    },
+    ideas: [
+      {
+        id: 'infinite_solutions', label: { en: 'Linear equation in 2 variables has infinitely many solutions', hi: 'दो चरों वाले रैखिक समीकरण के अनगिनत हल होते हैं' },
+        keys: ['infinite', 'many', 'anant', 'anek', 'more than one', 'pairs', 'अनंत', 'अनेक', 'कई हल'],
+        ask: { en: 'Are there really more pairs of x and y that work?', hi: 'क्या x और y के और भी जोड़े हो सकते हैं?' },
+      },
+      {
+        id: 'graph_line', label: { en: 'Graph of the equation is a straight line', hi: 'इस समीकरण का आलेख (ग्राफ) एक सीधी रेखा है' },
+        keys: ['line', 'straight line', 'graph', 'rekha', 'seedhi', 'ग्राफ', 'सीधी रेखा'],
+        ask: { en: 'If we draw all these points on a graph paper, what shape appears?', hi: 'ग्राफ पर इन बिंदुओं को बनाएँ तो कौन सा आकार बनता है?' },
+      },
+      {
+        id: 'find_ordered_pairs', label: { en: 'Pick an x, solve for y (e.g. x=0 gives y=4; y=0 gives x=6)', hi: 'कोई भी x चुनो और y निकालो (जैसे x=0 पर y=4; y=0 पर x=6)' },
+        keys: ['x=0', 'y=0', 'table', 'pair', 'intercept', '0', '4', '6', 'तालिका'],
+        ask: { en: 'How do I easily find two points to draw the line?', hi: 'रेखा खींचने के लिए दो बिंदु आसानी से कैसे ढूँढूँ?' },
+      },
+      {
+        id: 'points_on_line', label: { en: 'Every point on the line satisfies the equation', hi: 'उस रेखा का हर बिंदु इस समीकरण को संतुष्ट करता है' },
+        keys: ['point', 'satisfies', 'on the line', 'bindu', 'संतुष्ट', 'रेखा पर'],
+        ask: { en: 'What does a point that lies right on the line tell us?', hi: 'जो बिंदु रेखा पर आता है उसका क्या मतलब है?' },
+      },
+    ],
+  },
 };
 
 export const CHOTU_CONCEPTS = Object.keys(RUBRICS);

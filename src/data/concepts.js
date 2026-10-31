@@ -6,62 +6,62 @@
 export const CONCEPTS = [
   {
     id: 'c6_int', grade: 6, ncert: 'Class 6 · Ch 6 Integers',
-    name: { en: 'Negative numbers & the number line', hi: 'ऋणात्मक संख्याएँ और संख्या रेखा' },
+    name: { en: 'Negative numbers & the number line', hi: 'ऋणात्मक संख्याएँ और संख्या रेखा', hinglish: 'Negative Numbers aur Number Line' },
     prereqs: [],
   },
   {
     id: 'c6_frac', grade: 6, ncert: 'Class 6 · Ch 7 Fractions',
-    name: { en: 'Fractions', hi: 'भिन्न' },
+    name: { en: 'Fractions', hi: 'भिन्न', hinglish: 'Fractions (Bhinn)' },
     prereqs: [],
   },
   {
     id: 'c6_var', grade: 6, ncert: 'Class 6 · Ch 11 Algebra',
-    name: { en: 'Letters for numbers', hi: 'संख्याओं के लिए अक्षर' },
+    name: { en: 'Letters for numbers', hi: 'संख्याओं के लिए अक्षर', hinglish: 'Variables (Letters for Numbers)' },
     prereqs: [],
   },
   {
     id: 'c7_intops', grade: 7, ncert: 'Class 7 · Ch 1 Integers',
-    name: { en: 'Adding & subtracting integers', hi: 'पूर्णांकों का जोड़ और घटाव' },
+    name: { en: 'Adding & subtracting integers', hi: 'पूर्णांकों का जोड़ और घटाव', hinglish: 'Integers ka Addition aur Subtraction' },
     prereqs: ['c6_int'],
   },
   {
     id: 'c7_intmul', grade: 7, ncert: 'Class 7 · Ch 1 Integers',
-    name: { en: 'Multiplying & dividing integers', hi: 'पूर्णांकों का गुणा और भाग' },
+    name: { en: 'Multiplying & dividing integers', hi: 'पूर्णांकों का गुणा और भाग', hinglish: 'Integers ka Multiplication aur Division' },
     prereqs: ['c7_intops'],
   },
   {
     id: 'c7_fracops', grade: 7, ncert: 'Class 7 · Ch 2 Fractions & Decimals',
-    name: { en: 'Operations on fractions', hi: 'भिन्नों पर संक्रियाएँ' },
+    name: { en: 'Operations on fractions', hi: 'भिन्नों पर संक्रियाएँ', hinglish: 'Fraction Operations' },
     prereqs: ['c6_frac'],
   },
   {
     id: 'c7_expr', grade: 7, ncert: 'Class 7 · Ch 12 Algebraic Expressions',
-    name: { en: 'Algebraic expressions & like terms', hi: 'बीजीय व्यंजक और समान पद' },
+    name: { en: 'Algebraic expressions & like terms', hi: 'बीजीय व्यंजक और समान पद', hinglish: 'Algebraic Expressions aur Like Terms' },
     prereqs: ['c6_var', 'c7_intops'],
   },
   {
     id: 'c7_simpleeq', grade: 7, ncert: 'Class 7 · Ch 4 Simple Equations',
-    name: { en: 'Simple equations', hi: 'सरल समीकरण' },
+    name: { en: 'Simple equations', hi: 'सरल समीकरण', hinglish: 'Simple Equations' },
     prereqs: ['c7_expr', 'c7_intops'],
   },
   {
     id: 'c8_lineq', grade: 8, ncert: 'Class 8 · Ch 2 Linear Equations',
-    name: { en: 'Linear equations in one variable', hi: 'एक चर वाले रैखिक समीकरण' },
+    name: { en: 'Linear equations in one variable', hi: 'एक चर वाले रैखिक समीकरण', hinglish: 'Linear Equations in One Variable' },
     prereqs: ['c7_simpleeq', 'c7_fracops'],
   },
   {
     id: 'c8_brackets', grade: 8, ncert: 'Class 8 · Ch 9 Algebraic Expressions & Identities',
-    name: { en: 'Expanding brackets', hi: 'कोष्ठक खोलना' },
+    name: { en: 'Expanding brackets', hi: 'कोष्ठक खोलना', hinglish: 'Expanding Brackets' },
     prereqs: ['c7_expr', 'c7_intmul'],
   },
   {
     id: 'c9_poly', grade: 9, ncert: 'Class 9 · Ch 2 Polynomials',
-    name: { en: 'Value of a polynomial', hi: 'बहुपद का मान' },
+    name: { en: 'Value of a polynomial', hi: 'बहुपद का मान', hinglish: 'Polynomials ki Value' },
     prereqs: ['c8_brackets', 'c7_intmul'],
   },
   {
     id: 'c9_lin2', grade: 9, ncert: 'Class 9 · Ch 4 Linear Equations in Two Variables',
-    name: { en: 'Linear equations in two variables', hi: 'दो चर वाले रैखिक समीकरण' },
+    name: { en: 'Linear equations in two variables', hi: 'दो चर वाले रैखिक समीकरण', hinglish: 'Linear Equations in Two Variables' },
     prereqs: ['c8_lineq'],
   },
 ];

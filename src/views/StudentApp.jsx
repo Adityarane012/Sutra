@@ -6,7 +6,7 @@ import { nextConcept } from '../engine/selector.js';
 import LearnSession from './LearnSession.jsx';
 import Practice from './Practice.jsx';
 import ChotuChat from './ChotuChat.jsx';
-import { t, cls } from '../i18n.js';
+import { t, cls, tx } from '../i18n.js';
 
 const DEMO_STUDENTS = [
   { id: 'riya', emoji: '👧', desc: 'riyaDesc' },
@@ -83,7 +83,7 @@ function Dashboard({ lang, store, studentId, go, onSwitch }) {
 
       <div className="focus card accent-card">
         <p className="eyebrow">{t(lang, 'todayFocus')}{teacherSet && <> · 🧑‍🏫 {t(lang, 'teacherSet')}</>}</p>
-        <h2>{CONCEPT_BY_ID[focus].name[lang]} <span className="pill">{cls(lang, CONCEPT_BY_ID[focus].grade)}</span></h2>
+        <h2>{tx(CONCEPT_BY_ID[focus].name, lang)} <span className="pill">{cls(lang, CONCEPT_BY_ID[focus].grade)}</span></h2>
         <MasteryBar p={s.mastery[focus].p} lang={lang} />
       </div>
 
@@ -116,7 +116,7 @@ function Dashboard({ lang, store, studentId, go, onSwitch }) {
                   const b = band(s.mastery[c.id].p);
                   return (
                     <span key={c.id} className={`chip ${b}`} title={`${Math.round(s.mastery[c.id].p * 100)}%`}>
-                      {c.name[lang]} <b>{Math.round(s.mastery[c.id].p * 100)}%</b>
+                      {tx(c.name, lang)} <b>{Math.round(s.mastery[c.id].p * 100)}%</b>
                     </span>
                   );
                 })}

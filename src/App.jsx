@@ -20,14 +20,21 @@ export default function App() {
     return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); };
   }, []);
 
+  // Synchronize document language for screen readers
+  useEffect(() => {
+    document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
+  }, [lang]);
+
   // Use the student's saved language when they log in.
   const pickStudent = (id) => {
     setStudentId(id);
-    if (id) setLang(store.state.students[id].lang);
+    if (id && store.state.students[id]?.lang) setLang(store.state.students[id].lang);
   };
   const changeLang = (l) => {
     setLang(l);
-    if (studentId) store.update((s) => { s.students[studentId].lang = l; });
+    if (studentId) store.update((s) => {
+      if (s.students[studentId]) s.students[studentId].lang = l;
+    });
   };
 
   return (
@@ -43,18 +50,44 @@ export default function App() {
           <button className={role === 'about' ? 'on' : ''} onClick={() => setRole('about')}>{t(lang, 'about')}</button>
         </nav>
         <div className="tools">
-          <div className="tabs small" role="group" aria-label="Language">
-            <button className={lang === 'en' ? 'on' : ''} onClick={() => changeLang('en')}>EN</button>
-            <button className={lang === 'hi' ? 'on' : ''} onClick={() => changeLang('hi')}>हिं</button>
+          <div className={`lang-switch lang-active-${lang}`} role="radiogroup" aria-label="Language selection">
+            <div className="lang-slider-pill" aria-hidden="true" />
+            <button
+              type="button"
+              role="radio"
+              aria-checked={lang === 'en'}
+              className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+              onClick={() => changeLang('en')}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={lang === 'hinglish'}
+              className={`lang-btn ${lang === 'hinglish' ? 'active' : ''}`}
+              onClick={() => changeLang('hinglish')}
+            >
+              Hinglish
+            </button>
+            <button
+              type="button"
+              role="radio"
+              aria-checked={lang === 'hi'}
+              className={`lang-btn ${lang === 'hi' ? 'active' : ''}`}
+              onClick={() => changeLang('hi')}
+            >
+              हिं
+            </button>
           </div>
-          <button className="link small" onClick={() => { if (confirmReset()) { store.reset(); setStudentId(null); } }}>{t(lang, 'resetDemo')}</button>
+          <button className="link small" onClick={() => { if (confirmReset(lang)) { store.reset(); setStudentId(null); } }}>{t(lang, 'resetDemo')}</button>
         </div>
       </header>
       {!online && <p className="offline-bar">📴 {t(lang, 'offline')}</p>}
       <main>
         {role === 'student' && <StudentApp lang={lang} store={store} studentId={studentId} setStudentId={pickStudent} />}
         {role === 'teacher' && <TeacherView lang={lang} store={store} />}
-        {role === 'about' && <AboutView />}
+        {role === 'about' && <AboutView lang={lang} />}
       </main>
     </div>
   );
@@ -63,14 +96,25 @@ export default function App() {
 // A reset wipes demo progress, so make it a deliberate two-click action
 // instead of a blocking browser dialog.
 let armed = 0;
-function confirmReset() {
+let activeToast = null;
+function confirmReset(lang = 'en') {
   const now = Date.now();
-  if (now - armed < 3000) { armed = 0; return true; }
+  if (now - armed < 3000) {
+    armed = 0;
+    if (activeToast) { activeToast.remove(); activeToast = null; }
+    return true;
+  }
   armed = now;
+  if (activeToast) activeToast.remove();
   const el = document.createElement('div');
   el.className = 'toast';
-  el.textContent = 'Click “Reset demo” again to confirm';
+  el.setAttribute('role', 'status');
+  el.setAttribute('aria-live', 'polite');
+  el.textContent = t(lang, 'confirmReset') || 'Click “Reset demo” again to confirm';
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 3000);
+  activeToast = el;
+  setTimeout(() => {
+    if (activeToast === el) { el.remove(); activeToast = null; }
+  }, 3000);
   return false;
 }

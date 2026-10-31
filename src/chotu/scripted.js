@@ -6,10 +6,12 @@
 const ACKS = {
   en: ['Ohh! ', 'Hmm, okay… ', 'Wait, really? ', 'Achha! '],
   hi: ['अच्छा! ', 'हम्म, ठीक है… ', 'सच में? ', 'ओह! '],
+  hinglish: ['Achha! ', 'Hmm, samajh raha hoon… ', 'Wait, sach me? ', 'Ohh got it! '],
 };
 const CONFUSED = {
   en: 'I didn’t get that… ',
   hi: 'मुझे समझ नहीं आया… ',
+  hinglish: 'Mujhe samajh nahi aaya… ',
 };
 
 export function normalise(text) {
@@ -35,15 +37,19 @@ export function scriptedTurn({ text, ideas, covered, lang, turn }) {
   const found = matchIdeas(text, ideas).filter((id) => !covered.includes(id));
   const all = [...covered, ...found];
   const missing = ideas.filter((i) => !all.includes(i.id));
-  const ack = found.length ? ACKS[lang][turn % ACKS[lang].length] : CONFUSED[lang];
+  const ackList = ACKS[lang] || ACKS.en;
+  const ack = found.length ? ackList[turn % ackList.length] : (CONFUSED[lang] || CONFUSED.en);
   if (!missing.length) {
     return {
       covered: all,
       reply: lang === 'hi'
         ? `${ack}अब मुझे पूरा समझ आ गया! तुम बहुत अच्छा समझाते हो। 🙌`
+        : lang === 'hinglish'
+        ? `${ack}Ab mujhe poora samajh aa gaya! Tum bohot badhiya explain karte ho. 🙌`
         : `${ack}Now I totally get it! You explain really well. 🙌`,
       done: true,
     };
   }
-  return { covered: all, reply: ack + missing[0].ask[lang], done: false };
+  const askText = missing[0]?.ask?.[lang] || missing[0]?.ask?.en || '';
+  return { covered: all, reply: ack + askText, done: false };
 }

@@ -1,17 +1,64 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { t, tx } from '../i18n.js';
+import { shuffleOptions } from '../engine/randomize.js';
+
+export { shuffleOptions };
 
 /**
  * One question with the hint ladder: nudge → one worked step → easier twin.
  * Calls onAnswer(option, hintsUsed) once the student picks an option, then
  * shows feedback and a Continue button which calls onContinue().
+ *
+ * Options are deterministically shuffled per student/question to prevent
+ * positional bias and double-bench copying in Indian classrooms.
+ * Includes Voice Read-Aloud (Web Speech TTS) for accessible vernacular learning.
  */
-export default function QuestionCard({ question, lang, label, onAnswer, onContinue, onEasier, hints = true, footer }) {
+export default function QuestionCard({ question, lang, label, onAnswer, onContinue, onEasier, hints = true, footer, seedKey = '', randomize = true }) {
   const [hintLevel, setHintLevel] = useState(0);
   const [picked, setPicked] = useState(null);
+  const [speaking, setSpeaking] = useState(false);
+
+  const options = useMemo(() => {
+    if (!randomize) return question.options;
+    return shuffleOptions(question.options, seedKey || question.id);
+  }, [question.id, question.options, seedKey, randomize]);
+
+  // Clean up any ongoing speech synthesis on unmount or question change
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [question.id]);
+
+  const hasSpeech = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+  const speak = () => {
+    if (!hasSpeech) return;
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const optLabel = t(lang, 'optionWord') || 'Option';
+    const textToRead = `${tx(question.text, lang)}. ` + options.map((o, i) => `${optLabel} ${i + 1}: ${tx(o.text, lang)}`).join('. ');
+    const utterance = new SpeechSynthesisUtterance(textToRead);
+    utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-IN';
+    utterance.rate = 0.92;
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    setSpeaking(true);
+    window.speechSynthesis.speak(utterance);
+  };
 
   const choose = (opt) => {
     if (picked) return;
+    if (speaking && typeof window !== 'undefined' && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+    }
     setPicked(opt);
     onAnswer?.(opt, hintLevel);
   };
@@ -21,9 +68,22 @@ export default function QuestionCard({ question, lang, label, onAnswer, onContin
   return (
     <div className="card question">
       {label && <p className="eyebrow">{label}</p>}
-      <h2 className="q-text">{tx(question.text, lang)}</h2>
+      <div className="q-header">
+        <h2 className="q-text">{tx(question.text, lang)}</h2>
+        {hasSpeech && (
+          <button
+            type="button"
+            className={`btn-tts ${speaking ? 'on' : ''}`}
+            onClick={speak}
+            title={speaking ? t(lang, 'stopAudio') : t(lang, 'readAloud')}
+            aria-label={speaking ? t(lang, 'stopAudio') : t(lang, 'readAloud')}
+          >
+            {speaking ? '⏹️' : '🔊'}
+          </button>
+        )}
+      </div>
       <div className="options">
-        {question.options.map((o) => {
+        {options.map((o) => {
           const state = picked ? (o.correct ? 'right' : o.id === picked.id ? 'wrong' : 'dim') : '';
           return (
             <button key={o.id} className={`option ${state}`} onClick={() => choose(o)} disabled={!!picked}>

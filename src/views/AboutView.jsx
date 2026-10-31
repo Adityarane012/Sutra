@@ -1,8 +1,9 @@
 import results from '../data/validation-results.json';
 import { CONCEPT_BY_ID } from '../data/concepts.js';
+import { tx, cls } from '../i18n.js';
 
 /** How it works: algorithms, validation results we actually ran, and the data model. */
-export default function AboutView() {
+export default function AboutView({ lang = 'en' }) {
   const tr = results.trace;
   return (
     <div className="about">
@@ -28,7 +29,7 @@ export default function AboutView() {
         </div>
         <details>
           <summary>Exact-root accuracy by planted gap (new student)</summary>
-          <ul>{Object.entries(tr.newStudent.byRoot).map(([c, v]) => <li key={c}>Class {CONCEPT_BY_ID[c].grade} · {CONCEPT_BY_ID[c].name.en}: {v}%</li>)}</ul>
+          <ul>{Object.entries(tr.newStudent.byRoot).map(([c, v]) => <li key={c}>{cls(lang, CONCEPT_BY_ID[c].grade)} · {tx(CONCEPT_BY_ID[c].name, lang)}: {v}%</li>)}</ul>
           <p className="muted small">What this told us: roots with few misconception tags in Class 8–9 questions (letters for numbers, fractions) are found less often, so the next content step is more tagged questions on those paths. Success rate sits below target because each concept has only 5 questions to choose from.</p>
         </details>
       </div>

@@ -39,9 +39,19 @@ export default function ChotuChat({ studentId, lang, store, initialConcept, onEx
 
 function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
   const rubric = RUBRICS[concept];
+  if (!rubric) {
+    return (
+      <div className="card">
+        <h2>{tx(CONCEPT_BY_ID[concept]?.name, lang)}</h2>
+        <p className="muted">{t(lang, 'rubricComingSoon') || 'Chotu rubric for this topic is coming soon!'}</p>
+        <button className="btn primary" onClick={onExit}>{t(lang, 'home')}</button>
+      </div>
+    );
+  }
+
   const disabled = rubricEdits?.[concept] || [];
   const ideas = rubric.ideas.filter((i) => !disabled.includes(i.id));
-  const [messages, setMessages] = useState([{ from: 'chotu', text: rubric.opener[lang] }]);
+  const [messages, setMessages] = useState([{ from: 'chotu', text: tx(rubric.opener, lang) }]);
   const [covered, setCovered] = useState([]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
@@ -49,7 +59,17 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
   const [listening, setListening] = useState(false);
   const usedAI = useRef(false);
   const endRef = useRef(null);
+  const recRef = useRef(null);
+  const mountedRef = useRef(true);
   const aiOn = geminiAvailable();
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+      try { recRef.current?.abort(); } catch {}
+    };
+  }, []);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, [messages, busy]);
 
@@ -73,8 +93,11 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
       out = { reply: ai.reply, covered: all, done: all.length >= ideas.length };
       usedAI.current = true;
     } catch {
+      // Offline simulated thinking pause so the thinking state is visually perceptible
+      await new Promise((r) => setTimeout(r, 400));
       out = scriptedTurn({ text, ideas, covered, lang, turn: turns });
     }
+    if (!mountedRef.current) return;
     setCovered(out.covered);
     setMessages([...history, { from: 'chotu', text: out.reply }]);
     setBusy(false);
@@ -94,14 +117,25 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
   const mic = () => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) return;
-    const rec = new SR();
-    rec.lang = lang === 'hi' ? 'hi-IN' : 'en-IN';
-    rec.interimResults = false;
-    rec.onresult = (e) => setInput((v) => `${v} ${e.results[0][0].transcript}`.trim());
-    rec.onend = () => setListening(false);
-    rec.onerror = () => setListening(false);
-    setListening(true);
-    rec.start();
+    if (listening) {
+      try { recRef.current?.stop(); } catch {}
+      setListening(false);
+      return;
+    }
+    try {
+      const rec = new SR();
+      rec.lang = lang === 'hi' ? 'hi-IN' : 'en-IN';
+      rec.interimResults = false;
+      rec.onresult = (e) => setInput((v) => `${v} ${e.results[0][0].transcript}`.trim());
+      rec.onend = () => { if (mountedRef.current) setListening(false); recRef.current = null; };
+      rec.onerror = () => { if (mountedRef.current) setListening(false); recRef.current = null; };
+      recRef.current = rec;
+      setListening(true);
+      rec.start();
+    } catch {
+      setListening(false);
+      recRef.current = null;
+    }
   };
   const hasMic = typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition);
 
@@ -113,13 +147,13 @@ function Chat({ concept, studentId, lang, update, rubricEdits, onExit }) {
           <div className="chat-head">
             <span className="avatar" aria-hidden="true">🧒</span>
             <div>
-              <p className="eyebrow">{t(lang, 'teachChotu')} · {CONCEPT_BY_ID[concept].name[lang]}</p>
+              <p className="eyebrow">{t(lang, 'teachChotu')} · {tx(CONCEPT_BY_ID[concept]?.name, lang)}</p>
               <p className="muted small">{t(lang, 'chotuMode')}: {aiOn ? t(lang, 'chotuAI') : t(lang, 'chotuOffline')}</p>
             </div>
           </div>
           <div className="messages">
             {messages.map((m, i) => (
-              <p key={i} className={`bubble ${m.from}`}>{m.text}</p>
+              <p key={`${m.from}-${i}-${m.text.slice(0, 15)}`} className={`bubble ${m.from}`}>{m.text}</p>
             ))}
             {busy && <p className="bubble chotu muted">{t(lang, 'chotuThinking')}</p>}
             <div ref={endRef} />

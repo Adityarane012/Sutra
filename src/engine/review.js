@@ -11,5 +11,5 @@ export function scheduleReview(entry, correct, now = Date.now()) {
 }
 
 export function isDue(entry, now = Date.now()) {
-  return entry && entry.due !== undefined && entry.due <= now;
+  return !!(entry && entry.due !== undefined && entry.due <= now);
 }
