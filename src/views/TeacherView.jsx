@@ -21,7 +21,7 @@ export default function TeacherView({ store, lang }) {
   const { state, update } = store;
   const students = useMemo(() => Object.values(state.students), [state.students]);
   const brief = useMemo(() => morningBrief(students, state.classFocus), [students, state.classFocus]);
-  const [tab, setTab] = useState('brief');
+  const [tab, setTab] = useState(() => (typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('tab') : null) || 'brief');
   const [selected, setSelected] = useState(null);
   const [editing, setEditing] = useState(false);
 

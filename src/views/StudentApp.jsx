@@ -14,8 +14,12 @@ const DEMO_STUDENTS = [
 ];
 
 /** Student side: profile picker (shared phone + PIN) → dashboard → activities. */
-export default function StudentApp({ lang, store, studentId, setStudentId }) {
-  const [view, setView] = useState({ name: 'dash' });
+export default function StudentApp({ lang, store, studentId, setStudentId, initialView }) {
+  const [view, setView] = useState(() => {
+    if (initialView === 'practice' || initialView === 'warmup' || initialView === 'chotu') return { name: initialView };
+    if (initialView === 'learn') return { name: 'learn', questionId: 'c9_lin2_1', k: 1 };
+    return { name: 'dash' };
+  });
   if (!studentId) return <Picker lang={lang} onPick={setStudentId} store={store} />;
 
   const go = (name, extra = {}) => setView({ name, ...extra });

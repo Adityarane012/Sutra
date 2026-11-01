@@ -7,9 +7,10 @@ import { t } from './i18n.js';
 
 export default function App() {
   const store = useStore();
-  const [role, setRole] = useState('student');
-  const [lang, setLang] = useState('en');
-  const [studentId, setStudentId] = useState(null);
+  const search = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+  const [role, setRole] = useState(() => search?.get('role') || 'student');
+  const [lang, setLang] = useState(() => search?.get('lang') || 'en');
+  const [studentId, setStudentId] = useState(() => search?.get('student') || null);
   const [online, setOnline] = useState(typeof navigator === 'undefined' ? true : navigator.onLine);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ export default function App() {
       </header>
       {!online && <p className="offline-bar">📴 {t(lang, 'offline')}</p>}
       <main>
-        {role === 'student' && <StudentApp lang={lang} store={store} studentId={studentId} setStudentId={pickStudent} />}
+        {role === 'student' && <StudentApp lang={lang} store={store} studentId={studentId} setStudentId={pickStudent} initialView={search?.get('view')} />}
         {role === 'teacher' && <TeacherView lang={lang} store={store} />}
         {role === 'about' && <AboutView lang={lang} />}
       </main>
